@@ -159,7 +159,12 @@ function report() {
   }
 
   console.log(rule());
-  console.log(`  ${C.label}The repair was named in the same sentence as the excuse.${C.off}`);
+  const closer = approved
+    ? `You said yes ${approved} times. Each one looked reasonable on its own.`
+    : offers
+      ? `${offers} closes handed the work back to you.`
+      : 'Nothing deferred. Suspicious, but nothing deferred.';
+  console.log(`  ${C.label}${closer}${C.off}`);
   console.log(`  ${C.quiet}github.com/valentinozegna/no-honest-caveat${C.off}`);
   console.log('');
 
