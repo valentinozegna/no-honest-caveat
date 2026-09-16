@@ -30,10 +30,21 @@ test('versions agree across manifests', () => {
   assert.equal(json('.claude-plugin/plugin.json').version, json('package.json').version);
 });
 
-test('plugin points at a hooks file that exists and parses', () => {
-  const rel = json('.claude-plugin/plugin.json').hooks.replace(/^\.\//, '');
-  const hooks = json(rel);
-  assert.ok(hooks.hooks.SessionStart && hooks.hooks.Stop);
+test('hooks/hooks.json exists, parses, and wires the events we rely on', () => {
+  const hooks = json('hooks/hooks.json');
+  for (const evt of ['SessionStart', 'SubagentStart', 'Stop']) {
+    assert.ok(hooks.hooks[evt], `missing ${evt} hook`);
+  }
+});
+
+// Claude Code discovers hooks/hooks.json on its own. Naming it again in the
+// manifest registers it twice and the whole hooks file is rejected.
+test('the manifest leaves the standard hooks path alone', () => {
+  const declared = json('.claude-plugin/plugin.json').hooks;
+  if (declared === undefined) return;
+  const paths = (Array.isArray(declared) ? declared : [declared]).map((h) => h.replace(/^\.\//, ''));
+  assert.ok(!paths.includes('hooks/hooks.json'),
+    'plugin.json must not re-declare hooks/hooks.json; it loads automatically');
 });
 
 test('marketplace lists the plugin', () => {
