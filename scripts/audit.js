@@ -15,9 +15,21 @@ const APPROVE = /\b(yes|yeah|yep|ok|okay|sure|go ahead|do it|attack|proceed|go f
 const DECLINE = /^\s*(no\b|nope|don't|do not|stop\b|leave it|not now|skip (it|that)|hold off)/i;
 const MACHINE = /^(Stop hook feedback:|This session is being continued|Base directory for this skill:|Caveat: The messages below)/;
 
-const C = process.stdout.isTTY
-  ? { dim: '\x1b[2m', bold: '\x1b[1m', red: '\x1b[31m', yellow: '\x1b[33m', green: '\x1b[32m', off: '\x1b[0m' }
-  : { dim: '', bold: '', red: '', yellow: '', green: '', off: '' };
+const TTY = process.stdout.isTTY || process.env.FORCE_COLOR === '1';
+const e = (code) => (TTY ? `\x1b[${code}m` : '');
+const C = {
+  off: e(0), bold: e(1), dim: e(2),
+  title: e('1;38;5;81'),      // bright cyan, the product name
+  head: e('1;38;5;213'),      // pink, section headings
+  accent: e('38;5;81'),       // cyan, rules and marks
+  value: e('1;38;5;255'),     // bold white, the numbers that matter
+  label: e('38;5;249'),       // soft grey, the words beside them
+  good: e('38;5;114'),        // green
+  bad: e('38;5;203'),         // red
+  warn: e('38;5;221'),        // amber
+  quiet: e('38;5;243'),       // dim grey, footnotes
+  hot: e('38;5;203'), mid: e('38;5;221'), cool: e('38;5;74'),
+};
 
 function walk(dir, out = []) {
   let entries = [];
@@ -86,69 +98,73 @@ report();
 function report() {
   const pct = (n, d) => (d ? ((100 * n) / d).toFixed(1) : '0.0');
   const answered = approved + declined;
-  const w = 62;
-  const rule = (ch) => C.dim + '  ' + ch.repeat(w) + C.off;
+  const w = 64;
+  const rule = () => `  ${C.quiet}${'─'.repeat(w)}${C.off}`;
+  const heading = (t) => `  ${C.accent}▌${C.off} ${C.head}${t}${C.off}`;
 
   console.log('');
-  console.log(`  ${C.bold}no-honest-caveat${C.off}${C.dim} · the audit${C.off}`);
-  console.log(rule('─'));
+  console.log(`  ${C.title}no-honest-caveat${C.off}  ${C.quiet}·${C.off}  ${C.label}the audit${C.off}`);
+  console.log(rule());
 
   if (!messages) {
-    console.log(`\n  No transcripts found in ${ROOT}\n`);
-    console.log(`  ${C.dim}Point it somewhere else: npx ... <dir>${C.off}\n`);
+    console.log(`\n  ${C.label}No transcripts found in${C.off} ${C.value}${ROOT}${C.off}\n`);
+    console.log(`  ${C.quiet}Point it somewhere else: npx ... <dir>${C.off}\n`);
     return;
   }
 
-  row('assistant messages read', messages);
-  row('closes that defer to you', `${offers}   ${C.dim}${pct(offers, messages)}% of everything you wrote${C.off}`);
+  console.log('');
+  row('assistant messages read', `${C.value}${messages}${C.off}`);
+  row('closes that defer to you', `${C.warn}${C.bold}${offers}${C.off}   ${C.quiet}${pct(offers, messages)}% of everything you wrote${C.off}`);
   if (answered) {
-    row('of those, you replied to', answered);
-    row('you said yes', `${C.green}${approved}${C.off}`);
-    row('you said no', `${C.red}${declined}${C.off}`);
+    row('of those, you replied to', `${C.value}${answered}${C.off}`);
+    row('you said yes', `${C.good}${C.bold}${approved}${C.off}`);
+    row('you said no', `${C.bad}${C.bold}${declined}${C.off}`);
     console.log('');
     const load = Number(pct(declined, answered));
-    const verdict = load === 0
-      ? 'Never. Every single question was a round trip to nowhere.'
+    const tail = load === 0
+      ? 'Never. Every question was a round trip to nowhere.'
       : load < 10 ? `${load}% of the time. The other ${(100 - load).toFixed(1)}% was a formality.`
       : load < 25 ? `${load}% of the time. Rather less than it felt like.`
       : `${load}% of the time. Unusually load-bearing, for this habit.`;
-    console.log(`  ${C.bold}The question mattered:${C.off} ${verdict}`);
+    console.log(`  ${C.head}The question mattered${C.off}${C.quiet}:${C.off} ${C.label}${tail}${C.off}`);
   }
 
   const ranked = TELLS.map((t) => [t.label, counts.get(t.label)]).filter(([, n]) => n).sort((a, b) => b[1] - a[1]);
   if (ranked.length) {
     console.log('');
-    console.log(rule('─'));
-    console.log(`  ${C.bold}Greatest hits${C.off}`);
+    console.log(rule());
+    console.log(heading('Greatest hits'));
     console.log('');
     const max = ranked[0][1];
     for (const [label, n] of ranked) {
-      const bars = Math.max(1, Math.round((n / max) * 24));
+      const share = n / max;
+      const tint = share > 0.5 ? C.hot : share > 0.15 ? C.mid : C.cool;
+      const bars = Math.max(1, Math.round(share * 24));
       console.log(
-        `  ${String(n).padStart(6)}  ${C.yellow}${'▇'.repeat(bars)}${C.off}` +
-        `${' '.repeat(25 - bars)}${C.dim}"${label}"${C.off}`
+        `  ${C.value}${String(n).padStart(6)}${C.off}  ${tint}${'▇'.repeat(bars)}${C.off}` +
+        `${' '.repeat(25 - bars)}${C.label}"${label}"${C.off}`
       );
     }
   }
 
   if (wasted.length) {
     console.log('');
-    console.log(rule('─'));
-    console.log(`  ${C.bold}Closes that cost you a round trip for nothing${C.off}`);
+    console.log(rule());
+    console.log(heading('Closes that cost you a round trip for nothing'));
     console.log('');
     for (const line of wasted.slice(0, 5)) {
-      for (const chunk of wrap(`...${line}`, w - 4)) console.log(`  ${C.dim}│${C.off} ${chunk}`);
-      console.log(`  ${C.dim}│${C.off}`);
+      for (const chunk of wrap(`...${line}`, w - 4)) console.log(`  ${C.accent}│${C.off} ${C.quiet}${chunk}${C.off}`);
+      console.log(`  ${C.accent}│${C.off}`);
     }
   }
 
-  console.log(rule('─'));
-  console.log(`  ${C.dim}The repair was named in the same sentence as the excuse.${C.off}`);
-  console.log(`  ${C.dim}github.com/valentinozegna/no-honest-caveat${C.off}`);
+  console.log(rule());
+  console.log(`  ${C.label}The repair was named in the same sentence as the excuse.${C.off}`);
+  console.log(`  ${C.quiet}github.com/valentinozegna/no-honest-caveat${C.off}`);
   console.log('');
 
   function row(label, value) {
-    console.log(`  ${label.padEnd(30)}${C.bold}${value}${C.off}`);
+    console.log(`  ${C.label}${label.padEnd(30)}${C.off}${value}`);
   }
 }
 

@@ -58,3 +58,14 @@ test('every tell carries a label and a repair', () => {
   }
   assert.equal(new Set(TELLS.map((t) => t.label)).size, TELLS.length, 'labels must be unique');
 });
+
+test('audit stays plain when piped and colours on request', () => {
+  const args = [path.join(ROOT, 'scripts', 'audit.js'), path.join(ROOT, 'tests')];
+  const plain = execFileSync('node', args, { encoding: 'utf8' });
+  assert.ok(!plain.includes('\x1b['), 'piped output must carry no escape codes');
+
+  const colour = execFileSync('node', args, {
+    encoding: 'utf8', env: { ...process.env, FORCE_COLOR: '1' },
+  });
+  assert.ok(colour.includes('\x1b['), 'FORCE_COLOR=1 must colour the output');
+});

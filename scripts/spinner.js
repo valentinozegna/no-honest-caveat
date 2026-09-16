@@ -26,7 +26,7 @@ const LINES = [
 
 function start(total) {
   const out = process.stderr;
-  if (!out.isTTY) return { tick() {}, stop() {} };
+  if (!out.isTTY && process.env.FORCE_COLOR !== '1') return { tick() {}, stop() {} };
 
   let frame = 0, done = 0, painted = 0;
   const started = Date.now();
