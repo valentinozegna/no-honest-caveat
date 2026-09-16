@@ -4,7 +4,9 @@
 
 <img src="assets/yo-dawg.jpg" width="520" alt="Yo dawg, I heard you liked caveats, so I put a caveat in your caveat so you can caveat whilst you caveat">
 
-### A caveat is the repair, described instead of applied.<br>Your agent already did the expensive part,<br>then handed you the sentence and waited.
+*"A caveat is the repair, described instead of applied.<br>
+Your agent already did the expensive part,<br>
+then handed you the sentence and waited."*
 
 [![tests](https://github.com/valentinozegna/no-honest-caveat/actions/workflows/test.yml/badge.svg)](https://github.com/valentinozegna/no-honest-caveat/actions/workflows/test.yml)
 [![license](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
