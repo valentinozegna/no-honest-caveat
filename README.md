@@ -111,13 +111,12 @@ npx -y github:valentinozegna/no-honest-caveat
 
 It reads your transcripts, ranks the phrases your agent closes with, highlights
 the offending sentence in each one, and tells you how often the question
-carried any information. On the transcripts this was built from: 487 deferring
-closes, and 70 of the 81 that got an answer ended in "yes".
+carried any information.
 
 ## Develop
 
 ```bash
-npm test                            # 21 tests
+npm test                            # run the suite
 node scripts/build-rules.js         # regenerate the agent rule copies
 node scripts/build-rules.js --check # verify they are in sync
 node scripts/audit.js [dir]         # audit any transcript directory
