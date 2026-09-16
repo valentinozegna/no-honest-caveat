@@ -84,7 +84,7 @@ completion is the worse trade.
 npx skills add valentinozegna/no-honest-caveat
 ```
 
-**Claude Code plugin**, which adds the Stop hook and the slash command:
+**Claude Code plugin**, which adds the Stop hook on top of the skill:
 
 ```
 /plugin marketplace add valentinozegna/no-honest-caveat
@@ -111,7 +111,8 @@ npx -y github:valentinozegna/no-honest-caveat
 
 It reads your transcripts, ranks the phrases your agent closes with, highlights
 the offending sentence in each one, and tells you how often the question
-carried any information.
+carried any information. With the skill installed, `/no-honest-caveat audit`
+runs the same thing from inside your agent.
 
 ## Develop
 

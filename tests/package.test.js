@@ -21,7 +21,7 @@ test('skill has the frontmatter Claude Code needs', () => {
 });
 
 test('no em-dashes anywhere in the shipped text', () => {
-  for (const f of ['skills/no-honest-caveat/SKILL.md', 'rules/no-honest-caveat.md', 'README.md', 'commands/no-honest-caveat.md']) {
+  for (const f of ['skills/no-honest-caveat/SKILL.md', 'rules/no-honest-caveat.md', 'README.md']) {
     assert.ok(!read(f).includes('—'), `em-dash in ${f}`);
   }
 });
@@ -79,4 +79,10 @@ test('audit stays plain when piped and colours on request', () => {
     encoding: 'utf8', env: { ...process.env, FORCE_COLOR: '1' },
   });
   assert.ok(colour.includes('\x1b['), 'FORCE_COLOR=1 must colour the output');
+});
+
+// A skill and a command sharing a name show up twice in the slash menu.
+test('the plugin ships one entry point, the skill', () => {
+  assert.ok(!fs.existsSync(path.join(ROOT, 'commands')), 'commands/ would duplicate the skill in the slash menu');
+  assert.match(read('skills/no-honest-caveat/SKILL.md'), /argument-hint: "\[audit\]"/);
 });

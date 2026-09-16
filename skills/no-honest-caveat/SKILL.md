@@ -9,6 +9,7 @@ description: >
   it", "don't ask, do it", "stop asking", "close the gaps", or any complaint
   about permission prompts, handed-back TODOs, or a summary where a result
   belongs.
+argument-hint: "[audit]"
 license: MIT
 ---
 
@@ -36,12 +37,20 @@ transcripts the same three facts hold:
 - The repair is almost always named in the same sentence as the excuse. You
   knew the fix. You described it instead of applying it.
 
-Measure it on your own history. Whatever your number is, the shape will be
-this one.
+Measure it on your own history with `/no-honest-caveat audit`. Whatever your
+number is, the shape will be this one.
+
+## Audit
+
+Invoked with the argument `audit`, run this and show its output as printed:
 
 ```bash
 npx -y github:valentinozegna/no-honest-caveat
 ```
+
+It is read-only and stays on the machine. Then name the phrase costing the
+most round trips and the move it stood in for. Any other invocation: hold this
+skill for the rest of the session and continue the work in progress.
 
 ## The tell
 
