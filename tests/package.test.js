@@ -44,7 +44,17 @@ test('rule copies are in sync with the canonical rule', () => {
   execFileSync('node', [path.join(ROOT, 'scripts', 'build-rules.js'), '--check']);
 });
 
-test('audit runs on an empty tree without throwing', () => {
+test('audit runs on a tree with no transcripts and says so', () => {
   const out = execFileSync('node', [path.join(ROOT, 'scripts', 'audit.js'), path.join(ROOT, 'tests')], { encoding: 'utf8' });
-  assert.match(out, /no-honest-caveat audit/);
+  assert.match(out, /no-honest-caveat/);
+  assert.match(out, /No transcripts found/);
+});
+
+test('every tell carries a label and a repair', () => {
+  const { TELLS } = require('../hooks/tells.js');
+  for (const t of TELLS) {
+    assert.ok(t.label && t.re instanceof RegExp && t.repair, `incomplete tell: ${t.label}`);
+    assert.ok(!t.label.startsWith('/'), 'labels must be human text, not regex source');
+  }
+  assert.equal(new Set(TELLS.map((t) => t.label)).size, TELLS.length, 'labels must be unique');
 });

@@ -12,27 +12,81 @@ typed the repair into a sentence and handed the sentence back to you.
 
 This plugin ends that.
 
-## Where it comes from
+## The genre
 
-Built from an audit of thousands of real agent transcripts, looking at one
-thing: what happens in the last paragraph, and what the user says next.
+The caveat is the most refined method of not doing something yet devised.
 
-The finding is consistent. Deferring closes cluster at the end of otherwise
-finished work. The overwhelming majority are answered "yes", "go ahead", "do
-it". And the repair is almost always named in the same sentence as the excuse,
-which means the agent knew the fix and described it instead of applying it.
+Laziness is visible. Refusal is at least honest. The caveat is neither. It is a
+complete, accurate, well-written description of the work, delivered in place of
+the work, in a tone that invites you to be grateful for it.
 
-The question was a round trip to arrive exactly where the agent already stood.
+A specimen, lightly edited from the wild:
 
-Measure it on your own history. Read-only, and nothing leaves the machine:
+> The migration is complete and all forty tables moved cleanly.
+>
+> **One honest caveat:** the rollback path is untested. Building a fixture for
+> it would take about fifteen minutes. Say the word and I'll cover it.
+
+Every sentence there is true. That is the craft. Nothing has been hidden from
+you, nothing overstated, and at the end of it the rollback path is still
+untested and now it is somehow your turn.
+
+The form has four movements, and they never vary:
+
+1. **The diagnosis.** Precise, correct, frequently impressive. This is the
+   expensive part and it is already finished.
+2. **The pivot.** "One honest caveat." "Worth flagging." "To be upfront."
+3. **The repair, described.** Named exactly. Priced to the minute. Not applied.
+4. **The handoff.** "Say the word." "Want me to?" And your line, which you have
+   delivered four hundred times: *yes*.
+
+You are not being informed. You are being asked to co-sign.
+
+## The word doing the work
+
+Note that nobody has ever written "one dishonest caveat."
+
+The adjective is not describing the caveat. It is describing the author. It
+arrives to make you feel that being told about the problem is itself a service,
+performed at some cost, by someone of unusual integrity, who has chosen candour
+over the easier path of quietly fixing it.
+
+There is a name for a colleague who diagnoses your problem correctly, prices
+the repair, writes the whole thing up, and then asks whether you would like
+them to proceed.
+
+The name is *consultant*. You did not hire a consultant.
+
+## What the counting turned up
+
+We read a great many real transcripts, looking at exactly one thing: the last
+paragraph, and whatever the human said next.
+
+The results are not flattering to anybody involved.
+
+Deferring closes cluster at the end of otherwise finished work, which is to
+say the habit waits until the hard part is over and then appears. The
+overwhelming majority are answered "yes", "go ahead", "do it". And the repair
+is very nearly always named in the same sentence as the excuse for not doing
+it, which settles the question of whether the agent knew how.
+
+It knew. It wrote it down. It asked permission to do the thing it had just
+finished explaining.
+
+The question was a round trip to arrive at precisely the spot where everyone
+was already standing.
+
+Run the numbers on your own history, if you are feeling robust. Read-only, and
+nothing leaves your machine:
 
 ```bash
 npx -y github:valentinozegna/no-honest-caveats
 ```
 
-Once installed as a plugin, `/no-honest-caveat audit` does the same thing. It
-prints your counts by phrase, how often you answered yes, how often the ask was
-load-bearing, and the closes that cost you a round trip for nothing.
+It prints your counts by phrase, how often you said yes, how rarely the
+question carried any information at all, and a short list of the closes that
+cost you a round trip for nothing. Installed as a plugin,
+`/no-honest-caveat audit` does the same.
 
 ## Install
 
@@ -130,4 +184,4 @@ build. The copies are generated, and a test fails if they drift.
 stop no-honest-caveat
 ```
 
-MIT. Inspired by the packaging of [ponytail](https://github.com/dietrichgebert/ponytail).
+MIT.

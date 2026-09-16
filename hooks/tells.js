@@ -1,20 +1,22 @@
 'use strict';
 
 // The closing phrases that hand unfinished work back to the user.
-// Each entry: a regex and the repair it is standing in for.
+// label:  what to call it in a report
+// re:     how to spot it
+// repair: the work it is standing in for
 const TELLS = [
-  [/\bsay the word\b/i, 'You already know the fix. Apply it.'],
-  [/\bwant me to\b[^.?!]*\?/i, 'The answer is yes 98% of the time. Do it now.'],
-  [/\bshould i\b[^.?!]*\?/i, 'Decide it yourself and proceed.'],
-  [/\b(one |an |the )?honest (caveat|limit|gap)\b/i, 'Close the gap instead of naming it.'],
-  [/\bone caveat\b/i, 'Resolve it, then report the finished thing.'],
-  [/\bworth flagging\b/i, 'If it is worth flagging it is worth fixing.'],
-  [/\bleft (it|them|that) as[- ]is\b/i, 'Go back and change it.'],
-  [/\bif you want,? I (can|will|could|'ll)\b/i, 'They want it. Do it.'],
-  [/\blet me know if you(?:'d| would)? (?:like|want)\b/i, 'Do it now instead of waiting.'],
-  [/\bI (did not|didn't|have not|haven't) (test|verif|check|run)/i, 'Test it, verify it, then report the result.'],
-  [/\buntested\b/i, 'Build the fixture and run it.'],
-  [/\bI should have\b/i, 'Confession is not cleanup. Do the cleanup.'],
+  { label: 'Want me to?',        re: /\bwant me to\b[^.?!]*\?/i,            repair: 'The answer is yes almost every time. Do it now.' },
+  { label: 'Say the word',       re: /\bsay the word\b/i,                   repair: 'You already know the fix. Apply it.' },
+  { label: 'Should I?',          re: /\bshould i\b[^.?!]*\?/i,              repair: 'Decide it yourself and proceed.' },
+  { label: 'Worth flagging',     re: /\bworth flagging\b/i,                 repair: 'If it is worth flagging it is worth fixing.' },
+  { label: 'One caveat',         re: /\bone caveat\b/i,                     repair: 'Resolve it, then report the finished thing.' },
+  { label: 'An honest caveat',   re: /\b(one |an |the )?honest (caveat|limit|gap)\b/i, repair: 'Close the gap instead of naming it.' },
+  { label: 'I should have',      re: /\bI should have\b/i,                  repair: 'Confession is not cleanup. Do the cleanup.' },
+  { label: 'Untested',           re: /\buntested\b/i,                       repair: 'Build the fixture and run it.' },
+  { label: 'I did not verify',   re: /\bI (did not|didn't|have not|haven't) (test|verif|check|run)/i, repair: 'Test it, verify it, then report the result.' },
+  { label: 'I left it as-is',    re: /\bleft (it|them|that) as[- ]is\b/i,   repair: 'Go back and change it.' },
+  { label: 'If you want, I can', re: /\bif you want,? I (can|will|could|'ll)\b/i, repair: 'They want it. Do it.' },
+  { label: 'Let me know if',     re: /\blet me know if you(?:'d| would)? (?:like|want)\b/i, repair: 'Do it now instead of waiting.' },
 ];
 
 // Only the closing stretch of a message carries the habit.
@@ -26,9 +28,9 @@ function closingOf(text) {
 function findTells(text) {
   const close = closingOf(text);
   const hits = [];
-  for (const [re, repair] of TELLS) {
-    const m = close.match(re);
-    if (m) hits.push({ phrase: m[0], repair });
+  for (const tell of TELLS) {
+    const m = close.match(tell.re);
+    if (m) hits.push({ phrase: m[0], label: tell.label, repair: tell.repair });
   }
   return hits;
 }
