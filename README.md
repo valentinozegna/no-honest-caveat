@@ -17,50 +17,54 @@ then closes with **"one honest caveat"**, **"worth flagging"**, **"Say the word
 and I'll fix it"**. It diagnosed the problem correctly. It knew the repair. It
 typed the repair into a sentence and handed the sentence back to you.
 
-This plugin ends that.
+You typed "yes". You always type yes.
 
-## You said yes
+## What it does
 
-Here is the part that takes a while to notice.
+It gives your agent one gate to pass before it closes a response:
 
-In the moment it reads as diligence. You are busy, the work looks done, and
-somebody is being straight with you about a loose end. You type "yes". You move
-on. It costs four seconds and it feels like good management.
-
-A specimen you have already nodded at:
-
-> The migration is complete and all forty tables moved cleanly.
+> **Can I resolve this now, with the tools and access I already have?**
 >
-> **One honest caveat:** the rollback path is untested. Building a fixture
-> would take about fifteen minutes. Say the word and I'll cover it.
+> **Yes** → resolve it, and never mention it. A repaired defect is not news.
+> **No** → one flat sentence. No header, no "honest", no question mark.
 
-Every sentence is true. That is the craft. Nothing hidden, nothing overstated,
-and the rollback path is still untested and somehow it is now your turn.
+Before:
 
-You find out months later, scrolling back, that it was never one loose end. It
-was a habit with a shape: the diagnosis, precise and already finished, which
-was the expensive part. The pivot, "one honest caveat". The repair, named
-exactly, priced to the minute, not applied. And the handoff, where you say
-*yes* for the four hundredth time.
+```
+Migration complete, all forty tables moved cleanly.
 
-You were not being informed. You were being asked to co-sign, and you signed
-everything, because each one arrived alone and looked reasonable.
-
-Nobody has ever written "one dishonest caveat". The adjective is not describing
-the caveat, it is describing the author. There is a name for a colleague who
-diagnoses your problem, prices the repair, writes it all up, then asks whether
-you would like them to proceed. The name is *consultant*. You did not hire a
-consultant.
-
-Your own numbers, read-only, nothing leaving your machine:
-
-```bash
-npx -y github:valentinozegna/no-honest-caveat
+One honest caveat: the rollback path is untested. Building a fixture would
+take about fifteen minutes. Say the word and I'll cover it.
 ```
 
-It ranks the phrases you close with and counts how often the question carried
-information. On the transcripts this was built from: 487 of them, and 69 times
-out of 80 the answer was just yes.
+After:
+
+```
+Migration complete, all forty tables moved cleanly. Rollback verified
+against a scratch database, 0 failures.
+```
+
+Same agent, same fifteen minutes, one less round trip through you.
+
+The skill teaches the gate. A **Stop hook** enforces it: if the closing
+paragraph still defers work the agent could have done, the turn is blocked and
+the phrase is named.
+
+```
+no-honest-caveat: your close hands unfinished work back to the user.
+
+  "Say the word" -> You already know the fix. Apply it.
+  "One honest caveat" -> Close the gap instead of naming it.
+  "untested" -> Build the fixture and run it.
+```
+
+Three things still get said, once and flatly: **a decision you own** (scope,
+money, anything irreversible), **a wall it cannot climb** (missing hardware, a
+dead API), and **bias in its own measurements**. Deleting data, pushing to a
+remote, sending mail: it still asks, always.
+
+It will never claim a finish it did not reach. A false completion is worse than
+a caveat, because a caveat is at least true.
 
 ## Install
 
@@ -70,7 +74,7 @@ out of 80 the answer was just yes.
 npx skills add valentinozegna/no-honest-caveat
 ```
 
-**Claude Code plugin**, which adds the enforcement hooks and the slash command:
+**Claude Code plugin**, which adds the Stop hook and the slash command:
 
 ```
 /plugin marketplace add valentinozegna/no-honest-caveat
@@ -81,21 +85,24 @@ npx skills add valentinozegna/no-honest-caveat
 agent reads. It already ships at every common path (`AGENTS.md`, `GEMINI.md`,
 `.cursor/rules/`, `.clinerules/`, `.github/copilot-instructions.md`, and more).
 
-## What you get
+## How bad is it, really
 
-The skill, the audit, and a Stop hook that reads your closing paragraph and
-blocks a close that defers known work:
+Nobody has ever written "one dishonest caveat". The adjective is not describing
+the caveat, it is describing the author. There is a name for a colleague who
+diagnoses your problem, prices the repair, writes it all up, then asks whether
+you would like them to proceed. The name is *consultant*. You did not hire a
+consultant.
 
+Count your own. Read-only, nothing leaves your machine:
+
+```bash
+npx -y github:valentinozegna/no-honest-caveat
 ```
-no-honest-caveat: your close hands unfinished work back to the user.
 
-  "Say the word" -> You already know the fix. Apply it.
-  "One honest caveat" -> Close the gap instead of naming it.
-  "untested" -> Build the fixture and run it.
-```
-
-It will not push an agent into faking a finish. A decision you own, a wall it
-cannot climb, and bias in its own instrument still get said, once, flatly.
+It reads your transcripts, ranks the phrases your agent closes with, highlights
+the offending sentence in each one, and tells you how often the question
+carried any information. On the transcripts this was built from: 487 deferring
+closes, and 70 of the 81 that got an answer ended in "yes".
 
 ## Develop
 

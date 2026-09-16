@@ -28,8 +28,22 @@ const C = {
   bad: e('38;5;203'),         // red
   warn: e('38;5;221'),        // amber
   quiet: e('38;5;243'),       // dim grey, footnotes
+  caught: e('1;38;5;211'),    // hot pink, the phrase that did it
   hot: e('38;5;203'), mid: e('38;5;221'), cool: e('38;5;74'),
 };
+
+// Show the stretch containing the tell, not whatever happened to be last.
+function excerpt(close, width = 150) {
+  const flat = close.replace(/\s+/g, ' ').trim();
+  let at = -1;
+  for (const t of TELLS) {
+    const m = flat.match(t.re);
+    if (m && m.index !== undefined && (at === -1 || m.index < at)) at = m.index;
+  }
+  if (at === -1) return flat.slice(-width);
+  const start = Math.max(0, at - Math.floor(width / 3));
+  return (start ? '...' : '') + flat.slice(start, start + width);
+}
 
 function walk(dir, out = []) {
   let entries = [];
@@ -87,7 +101,7 @@ for (const file of files) {
     if (DECLINE.test(head)) declined++;
     else if (APPROVE.test(head)) {
       approved++;
-      wasted.push(close.slice(-150).replace(/\s+/g, ' ').trim());
+      wasted.push(excerpt(close));
     }
   }
 }
@@ -153,16 +167,20 @@ function report() {
     console.log(heading('Closes that cost you a round trip for nothing'));
     console.log('');
     for (const line of wasted.slice(0, 5)) {
-      for (const chunk of wrap(`...${line}`, w - 4)) console.log(`  ${C.accent}│${C.off} ${C.quiet}${chunk}${C.off}`);
+      const text = line;
+      const hot = guilty(text);
+      for (const seg of wrap(text, w - 4)) {
+        console.log(`  ${C.accent}│${C.off} ${paint(text, hot, seg.start, seg.end, C.quiet, C.caught)}`);
+      }
       console.log(`  ${C.accent}│${C.off}`);
     }
   }
 
   console.log(rule());
-  const closer = approved
-    ? `You said yes ${approved} times. Each one looked reasonable on its own.`
+  const closer = answered
+    ? `${approved} of ${answered} questions ended in "yes". That work could simply have been done.`
     : offers
-      ? `${offers} closes handed the work back to you.`
+      ? `${offers} times the work stopped one step short of finished.`
       : 'Nothing deferred. Suspicious, but nothing deferred.';
   console.log(`  ${C.label}${closer}${C.off}`);
   console.log(`  ${C.quiet}github.com/valentinozegna/no-honest-caveat${C.off}`);
@@ -173,14 +191,45 @@ function report() {
   }
 }
 
+// Wrap, but report where each line started, so a highlight can be re-applied
+// to the right characters even when a phrase straddles a break.
 function wrap(text, width) {
-  const words = text.split(' ');
   const lines = [];
-  let line = '';
-  for (const word of words) {
-    if ((line + ' ' + word).trim().length > width) { lines.push(line.trim()); line = word; }
-    else line += ' ' + word;
+  let start = 0, end = 0;
+  while (start < text.length) {
+    if (text.length - start <= width) { lines.push({ start, end: text.length }); break; }
+    end = text.lastIndexOf(' ', start + width);
+    if (end <= start) end = start + width;
+    lines.push({ start, end });
+    start = end + 1;
   }
-  if (line.trim()) lines.push(line.trim());
   return lines;
+}
+
+// Every character covered by a tell, so the guilty phrase lights up inside the
+// quote instead of the reader hunting for it.
+function guilty(text) {
+  const hot = new Array(text.length).fill(false);
+  for (const t of TELLS) {
+    const re = new RegExp(t.re.source, 'gi');
+    let m;
+    while ((m = re.exec(text)) !== null) {
+      for (let i = m.index; i < m.index + m[0].length; i++) hot[i] = true;
+      if (m.index === re.lastIndex) re.lastIndex++;
+    }
+  }
+  return hot;
+}
+
+function paint(text, hot, from, to, cool, warm) {
+  let out = '', run = '', state = null;
+  for (let i = from; i < to; i++) {
+    if (hot[i] !== state) {
+      if (run) out += (state ? warm : cool) + run + '\x1b[0m';
+      run = ''; state = hot[i];
+    }
+    run += text[i];
+  }
+  if (run) out += (state ? warm : cool) + run + '\x1b[0m';
+  return out;
 }
