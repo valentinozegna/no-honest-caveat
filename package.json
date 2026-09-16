@@ -1,7 +1,7 @@
 {
   "name": "no-honest-caveat",
   "version": "1.0.0",
-  "description": "Finish the work instead of confessing about it. A skill, a Stop hook that catches the close, and an audit that measures the habit in your own transcripts.",
+  "description": "Finish the work instead of confessing about it.",
   "license": "MIT",
   "author": "Valentino Zegna",
   "homepage": "https://github.com/valentinozegna/no-honest-caveat",
