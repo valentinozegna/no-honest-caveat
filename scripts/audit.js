@@ -144,7 +144,7 @@ function report() {
 
   console.log(rule('─'));
   console.log(`  ${C.dim}The repair was named in the same sentence as the excuse.${C.off}`);
-  console.log(`  ${C.dim}github.com/valentinozegna/no-honest-caveats${C.off}`);
+  console.log(`  ${C.dim}github.com/valentinozegna/no-honest-caveat${C.off}`);
   console.log('');
 
   function row(label, value) {

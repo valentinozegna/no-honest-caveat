@@ -39,7 +39,7 @@ Measure it on your own history. Whatever your number is, the shape will be
 this one.
 
 ```bash
-npx -y github:valentinozegna/no-honest-caveats
+npx -y github:valentinozegna/no-honest-caveat
 ```
 
 ## The tell

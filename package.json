@@ -4,10 +4,10 @@
   "description": "Finish the work instead of confessing about it. A skill, a Stop hook that catches the close, and an audit that measures the habit in your own transcripts.",
   "license": "MIT",
   "author": "Valentino Zegna",
-  "homepage": "https://github.com/valentinozegna/no-honest-caveats",
+  "homepage": "https://github.com/valentinozegna/no-honest-caveat",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/valentinozegna/no-honest-caveats.git"
+    "url": "git+https://github.com/valentinozegna/no-honest-caveat.git"
   },
   "keywords": [
     "claude",

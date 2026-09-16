@@ -6,7 +6,7 @@
     "name": "Valentino Zegna",
     "url": "https://github.com/valentinozegna"
   },
-  "homepage": "https://github.com/valentinozegna/no-honest-caveats",
+  "homepage": "https://github.com/valentinozegna/no-honest-caveat",
   "license": "MIT",
   "keywords": ["caveat", "completion", "agency", "finish", "autonomy", "quality"],
   "hooks": "./hooks/hooks.json"

@@ -1,11 +1,16 @@
+<div align="center">
+
 # no-honest-caveat
 
-[![skills.sh](https://skills.sh/b/valentinozegna/no-honest-caveats)](https://skills.sh/valentinozegna/no-honest-caveats)
+<img src="assets/yo-dawg.jpg" width="520" alt="Yo dawg, I heard you liked caveats, so I put a caveat in your caveat so you can caveat whilst you caveat">
 
-<img src="assets/yo-dawg.jpg" alt="Yo dawg, I heard you liked caveats, so I put a caveat in your caveat so you can caveat whilst you caveat" width="520">
+### A caveat is a defect you found, understood, priced,<br>and typed out instead of repaired.<br>You already did the expensive part. Finish.
 
-> A caveat is a defect you found, understood, priced, and typed out instead of
-> repaired. You already did the expensive part. Finish.
+[![tests](https://github.com/valentinozegna/no-honest-caveat/actions/workflows/test.yml/badge.svg)](https://github.com/valentinozegna/no-honest-caveat/actions/workflows/test.yml)
+[![license](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+[![skills.sh](https://img.shields.io/badge/skills.sh-no--honest--caveat-black)](https://skills.sh/valentinozegna/no-honest-caveat)
+
+</div>
 
 You know the ending. The agent works for twenty minutes, ships something good,
 then closes with **"one honest caveat"**, **"worth flagging"**, **"Say the word
@@ -82,7 +87,7 @@ Run the numbers on your own history, if you are feeling robust. Read-only, and
 nothing leaves your machine:
 
 ```bash
-npx -y github:valentinozegna/no-honest-caveats
+npx -y github:valentinozegna/no-honest-caveat
 ```
 
 It prints your counts by phrase, how often you said yes, how rarely the
@@ -95,7 +100,7 @@ cost you a round trip for nothing. Installed as a plugin,
 **Skills CLI** (Claude Code, Cursor, Codex, Copilot, Gemini, and the rest):
 
 ```bash
-npx skills add valentinozegna/no-honest-caveats
+npx skills add valentinozegna/no-honest-caveat
 ```
 
 That installs the skill itself, which is self-sufficient.
@@ -104,7 +109,7 @@ That installs the skill itself, which is self-sufficient.
 command on top of the skill:
 
 ```
-/plugin marketplace add valentinozegna/no-honest-caveats
+/plugin marketplace add valentinozegna/no-honest-caveat
 /plugin install no-honest-caveat
 ```
 
@@ -124,7 +129,7 @@ drift.
 The audit runs from anywhere without installing:
 
 ```bash
-npx -y github:valentinozegna/no-honest-caveats
+npx -y github:valentinozegna/no-honest-caveat
 ```
 
 ## What you get
