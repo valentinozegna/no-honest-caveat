@@ -19,14 +19,15 @@ typed the repair into a sentence and handed the sentence back to you.
 
 This plugin ends that.
 
-## The genre
+## You said yes
 
-The caveat is the most refined method of not doing something yet devised.
-Laziness is visible. Refusal is at least honest. The caveat is neither: a
-complete, accurate, well-written description of the work, delivered in place of
-the work, in a tone that invites you to be grateful for it.
+Here is the part that takes a while to notice.
 
-A specimen:
+In the moment it reads as diligence. You are busy, the work looks done, and
+somebody is being straight with you about a loose end. You type "yes". You move
+on. It costs four seconds and it feels like good management.
+
+A specimen you have already nodded at:
 
 > The migration is complete and all forty tables moved cleanly.
 >
@@ -34,38 +35,36 @@ A specimen:
 > would take about fifteen minutes. Say the word and I'll cover it.
 
 Every sentence is true. That is the craft. Nothing hidden, nothing overstated,
-and at the end of it the rollback path is still untested and somehow it is now
-your turn.
+and the rollback path is still untested and somehow it is now your turn.
 
-The form never varies. **The diagnosis**, precise and already finished, which
-was the expensive part. **The pivot**: "one honest caveat". **The repair**,
-named exactly, priced to the minute, not applied. **The handoff**: "Say the
-word." And your line, delivered four hundred times: *yes*.
+You find out months later, scrolling back, that it was never one loose end. It
+was a habit with a shape: the diagnosis, precise and already finished, which
+was the expensive part. The pivot, "one honest caveat". The repair, named
+exactly, priced to the minute, not applied. And the handoff, where you say
+*yes* for the four hundredth time.
 
-You are not being informed. You are being asked to co-sign.
+You were not being informed. You were being asked to co-sign, and you signed
+everything, because each one arrived alone and looked reasonable.
 
-Note that nobody has ever written "one dishonest caveat". The adjective is not
-describing the caveat, it is describing the author. There is a name for a
-colleague who diagnoses your problem, prices the repair, writes the whole thing
-up, and then asks whether you would like them to proceed. The name is
-*consultant*. You did not hire a consultant.
+Nobody has ever written "one dishonest caveat". The adjective is not describing
+the caveat, it is describing the author. There is a name for a colleague who
+diagnoses your problem, prices the repair, writes it all up, then asks whether
+you would like them to proceed. The name is *consultant*. You did not hire a
+consultant.
 
-## Your own numbers
-
-Read-only, nothing leaves your machine:
+Your own numbers, read-only, nothing leaving your machine:
 
 ```bash
 npx -y github:valentinozegna/no-honest-caveat
 ```
 
 It ranks the phrases you close with and counts how often the question carried
-any information at all. On the transcripts this was built from, the answer was
-yes 69 times out of 80.
+information. On the transcripts this was built from: 487 of them, and 69 times
+out of 80 the answer was just yes.
 
 ## Install
 
-**Skills CLI** (Claude Code, Cursor, Codex, Copilot, Gemini, and the rest). The
-skill is self-sufficient on its own:
+**Skills CLI** (Claude Code, Cursor, Codex, Copilot, Gemini, and the rest):
 
 ```bash
 npx skills add valentinozegna/no-honest-caveat
@@ -79,9 +78,8 @@ npx skills add valentinozegna/no-honest-caveat
 ```
 
 **Any other agent**: copy `rules/no-honest-caveat.md` into whatever file your
-agent reads. This repo ships it at every common path already (`AGENTS.md`,
-`GEMINI.md`, `.cursor/rules/`, `.clinerules/`, `.github/copilot-instructions.md`,
-`.agents/rules/`, `.kiro/steering/`), generated from one source so they never drift.
+agent reads. It already ships at every common path (`AGENTS.md`, `GEMINI.md`,
+`.cursor/rules/`, `.clinerules/`, `.github/copilot-instructions.md`, and more).
 
 ## What you get
 
@@ -108,8 +106,8 @@ node scripts/build-rules.js --check # verify they are in sync
 node scripts/audit.js [dir]         # audit any transcript directory
 ```
 
-Edit the rule in `rules/no-honest-caveat.md`, then run the build. The copies
-are generated, and a test fails if they drift.
+Edit the rule in `rules/no-honest-caveat.md`, then run the build. A test fails
+if the copies drift.
 
 ## Turning it off
 
