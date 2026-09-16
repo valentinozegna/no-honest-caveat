@@ -1,0 +1,17 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "no-honest-caveat",
+  "description": "Stop ending work with an honest caveat. Close the gap, then report the finished thing.",
+  "owner": {
+    "name": "Valentino Zegna",
+    "url": "https://github.com/valentinozegna"
+  },
+  "plugins": [
+    {
+      "name": "no-honest-caveat",
+      "description": "A caveat is a defect you found, understood, priced, and typed out instead of repaired. Finish.",
+      "source": "./",
+      "category": "productivity"
+    }
+  ]
+}

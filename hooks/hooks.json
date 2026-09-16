@@ -1,0 +1,41 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/activate.js\"",
+            "timeout": 5,
+            "statusMessage": "Loading no-honest-caveat..."
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/activate.js\"",
+            "timeout": 5,
+            "statusMessage": "Loading no-honest-caveat..."
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/gate.js\"",
+            "timeout": 10,
+            "statusMessage": "Checking the close for caveats..."
+          }
+        ]
+      }
+    ]
+  }
+}

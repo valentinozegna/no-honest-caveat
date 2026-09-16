@@ -1,0 +1,13 @@
+{
+  "name": "no-honest-caveat",
+  "version": "1.0.0",
+  "description": "Finish the work instead of confessing about it. Kills the closing 'one honest caveat', 'Say the word and I'll', and 'Want me to?' that hand a known, fixable defect back to the user.",
+  "author": {
+    "name": "Valentino Zegna",
+    "url": "https://github.com/valentinozegna"
+  },
+  "homepage": "https://github.com/valentinozegna/no-honest-caveats",
+  "license": "MIT",
+  "keywords": ["caveat", "completion", "agency", "finish", "autonomy", "quality"],
+  "hooks": "./hooks/hooks.json"
+}

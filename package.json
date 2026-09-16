@@ -1,0 +1,41 @@
+{
+  "name": "no-honest-caveat",
+  "version": "1.0.0",
+  "description": "Finish the work instead of confessing about it. A skill, a Stop hook that catches the close, and an audit that measures the habit in your own transcripts.",
+  "license": "MIT",
+  "author": "Valentino Zegna",
+  "homepage": "https://github.com/valentinozegna/no-honest-caveats",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/valentinozegna/no-honest-caveats.git"
+  },
+  "keywords": [
+    "claude",
+    "claude-code",
+    "skill",
+    "plugin",
+    "agent",
+    "caveat",
+    "ai-agents"
+  ],
+  "bin": {
+    "no-honest-caveat": "./scripts/audit.js",
+    "no-honest-caveat-audit": "./scripts/audit.js"
+  },
+  "scripts": {
+    "audit": "node scripts/audit.js",
+    "test": "node --test tests/*.test.js"
+  },
+  "files": [
+    ".claude-plugin",
+    "skills",
+    "commands",
+    "hooks",
+    "scripts",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  }
+}
