@@ -2,6 +2,8 @@
 
 [![skills.sh](https://skills.sh/b/valentinozegna/no-honest-caveats)](https://skills.sh/valentinozegna/no-honest-caveats)
 
+<img src="assets/yo-dawg.jpg" alt="Yo dawg, I heard you liked caveats, so I put a caveat in your caveat so you can caveat whilst you caveat" width="520">
+
 > A caveat is a defect you found, understood, priced, and typed out instead of
 > repaired. You already did the expensive part. Finish.
 
