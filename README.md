@@ -23,10 +23,17 @@ You typed "yes". You always type yes.
 
 It gives your agent one gate to pass before it closes a response:
 
-> **Can I resolve this now, with the tools and access I already have?**
->
-> **Yes** → resolve it, and never mention it. A repaired defect is not news.
-> **No** → one flat sentence. No header, no "honest", no question mark.
+<div align="center">
+
+### *Can I resolve this now, with the tools and access I already have?*
+
+**YES** → resolve it, and never mention it.<br>
+*A repaired defect is not news.*
+
+**NO** → one flat sentence in the body.<br>
+*No header, no "honest", no question mark.*
+
+</div>
 
 Before:
 
