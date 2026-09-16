@@ -1,7 +1,7 @@
 {
   "name": "no-honest-caveat",
   "version": "1.0.0",
-  "description": "Finish the work instead of confessing about it.",
+  "description": "Make your agent finish the work instead of making confessions.",
   "author": {
     "name": "Valentino Zegna",
     "url": "https://github.com/valentinozegna"

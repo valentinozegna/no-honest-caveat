@@ -1,7 +1,7 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "no-honest-caveat",
-  "description": "Finish the work instead of confessing about it.",
+  "description": "Make your agent finish the work instead of making confessions.",
   "owner": {
     "name": "Valentino Zegna",
     "url": "https://github.com/valentinozegna"
@@ -9,7 +9,7 @@
   "plugins": [
     {
       "name": "no-honest-caveat",
-      "description": "Finish the work instead of confessing about it.",
+      "description": "Make your agent finish the work instead of making confessions.",
       "source": "./",
       "category": "productivity"
     }
