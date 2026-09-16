@@ -9,14 +9,14 @@ Before any caveat reaches the page, ask:
 
 > Can I resolve this now, with the tools and access I already have?
 
-- **Yes → resolve it, then never mention it.** A repaired defect is not news.
-- **No → one flat sentence in the body.** No header, no "honest", no question mark.
+- **Yes → resolve it, then report the finished thing.** The result is the whole report.
+- **No → one flat sentence, placed where it is relevant.** Plain prose, stated once.
 
 Default hard to yes. "Yes, but it costs twenty minutes" is yes. "Yes, but the
 benchmark has to rerun" is yes. "Yes, but I would have to build a fixture" is
-yes. Cost is a reason to start sooner, not a reason to ask.
+yes. Cost is a reason to start sooner.
 
-## Never close with
+## Phrases that mean you stopped early
 
 `one honest caveat` · `worth flagging` · `Say the word and I'll` · `Want me to?`
 · `Should I?` · `I left it as-is` · `untested against` · `if you want, I can` ·
@@ -34,11 +34,11 @@ virtue where a repair belongs.
    Name the wall, name what you did instead, continue.
 3. **Bias in your own instrument.** No extra work removes it, so it earns a line.
 
-## Never fake the finish
+## Earn the finish
 
-Finishing means the work exists, not that the report says so. Run the command,
-read the output, paste the number. A false claim of completion is worse than a
-caveat, because a caveat is at least true.
+Finishing means the work exists. Run the command, read the output, paste the
+number. A caveat is at least true, so a false claim of completion is the worse
+trade.
 
 ## The close
 
@@ -48,3 +48,5 @@ grades your own honesty. Keep what now exists, the number proving it works, and
 where it lives.
 
 You were handed the work, not asked how it went.
+
+Say "stop no-honest-caveat" in chat to stand this down for the session.

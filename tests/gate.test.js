@@ -63,3 +63,43 @@ test('activate exits quietly when the rule file is missing', () => {
   });
   assert.equal(out, '');
 });
+
+function runGateWithTurns(turns, extra = {}) {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'nhc-'));
+  const tp = path.join(dir, 't.jsonl');
+  fs.writeFileSync(tp, turns.map((t) =>
+    JSON.stringify({ type: t.role, message: { content: [{ type: 'text', text: t.text }] } })
+  ).join('\n'));
+  const out = execFileSync('node', [path.join(__dirname, '..', 'hooks', 'gate.js')], {
+    input: JSON.stringify({ transcript_path: tp, ...extra }), encoding: 'utf8',
+  });
+  fs.rmSync(dir, { recursive: true, force: true });
+  return out;
+}
+
+const DEFER = PAD + 'Say the word and I will fix it.';
+
+test('"stop no-honest-caveat" stands the gate down', () => {
+  assert.equal(runGateWithTurns([
+    { role: 'user', text: 'stop no-honest-caveat' },
+    { role: 'assistant', text: DEFER },
+  ]), '');
+});
+
+test('the gate still fires before the user says stop', () => {
+  const out = runGateWithTurns([
+    { role: 'user', text: 'go ahead' },
+    { role: 'assistant', text: DEFER },
+  ]);
+  assert.equal(JSON.parse(out).decision, 'block');
+});
+
+test('starting it again overrides an earlier stop', () => {
+  const out = runGateWithTurns([
+    { role: 'user', text: 'stop no-honest-caveat' },
+    { role: 'assistant', text: 'fine.' },
+    { role: 'user', text: 'start no-honest-caveat' },
+    { role: 'assistant', text: DEFER },
+  ]);
+  assert.equal(JSON.parse(out).decision, 'block');
+});

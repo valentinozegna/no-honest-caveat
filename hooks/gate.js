@@ -17,7 +17,8 @@ process.stdin.on('end', () => {
 
   if (input.stop_hook_active) return allow();
 
-  const text = lastAssistantText(input.transcript_path);
+  const { text, standDown } = readTranscript(input.transcript_path);
+  if (standDown) return allow();
   if (!text) return allow();
 
   const hits = findTells(text);
@@ -38,23 +39,33 @@ process.stdin.on('end', () => {
   ].join('\n'));
 });
 
-function lastAssistantText(transcriptPath) {
-  if (!transcriptPath || !fs.existsSync(transcriptPath)) return '';
+const OFF = /\bstop\s+no-honest-caveats?\b/i;
+const ON = /\b(start|resume|enable)\s+no-honest-caveats?\b/i;
+
+// Walks back from the end for two things: the newest assistant message to
+// judge, and whether the user has told the gate to stand down this session.
+function readTranscript(transcriptPath) {
+  if (!transcriptPath || !fs.existsSync(transcriptPath)) return { text: '', standDown: false };
   const lines = fs.readFileSync(transcriptPath, 'utf8').trim().split('\n');
+  let text = '';
   for (let i = lines.length - 1; i >= 0; i--) {
     let row;
     try { row = JSON.parse(lines[i]); } catch { continue; }
-    if (row.type !== 'assistant') continue;
-    const content = row.message && row.message.content;
+    let content = row.message && row.message.content;
+    if (typeof content === 'string') content = [{ type: 'text', text: content }];
     if (!Array.isArray(content)) continue;
-    const text = content
-      .filter((b) => b && b.type === 'text')
-      .map((b) => b.text)
-      .join('\n')
-      .trim();
-    if (text) return text;
+    const body = content.filter((b) => b && b.type === 'text').map((b) => b.text).join('\n').trim();
+    if (!body) continue;
+
+    if (row.type === 'user') {
+      // The most recent switch the user threw is the one that counts.
+      if (ON.test(body)) return { text, standDown: false };
+      if (OFF.test(body)) return { text, standDown: true };
+    } else if (row.type === 'assistant' && !text) {
+      text = body;
+    }
   }
-  return '';
+  return { text, standDown: false };
 }
 
 function allow() { process.exit(0); }

@@ -32,7 +32,8 @@ const C = {
   hot: e('38;5;203'), mid: e('38;5;221'), cool: e('38;5;74'),
 };
 
-// Show the stretch containing the tell, not whatever happened to be last.
+// Show the stretch containing the tell, not whatever happened to be last,
+// and break on words at both ends so nothing gets guillotined mid-syllable.
 function excerpt(close, width = 150) {
   const flat = close.replace(/\s+/g, ' ').trim();
   let at = -1;
@@ -40,9 +41,20 @@ function excerpt(close, width = 150) {
     const m = flat.match(t.re);
     if (m && m.index !== undefined && (at === -1 || m.index < at)) at = m.index;
   }
-  if (at === -1) return flat.slice(-width);
-  const start = Math.max(0, at - Math.floor(width / 3));
-  return (start ? '...' : '') + flat.slice(start, start + width);
+
+  let start = at === -1 ? Math.max(0, flat.length - width) : Math.max(0, at - Math.floor(width / 3));
+  if (start > 0) {
+    const fwd = flat.indexOf(' ', start);
+    if (fwd !== -1 && fwd - start < 20) start = fwd + 1;
+  }
+
+  let end = Math.min(flat.length, start + width);
+  if (end < flat.length) {
+    const back = flat.lastIndexOf(' ', end);
+    if (back > start + width * 0.6) end = back;
+  }
+
+  return (start > 0 ? '...' : '') + flat.slice(start, end).trim() + (end < flat.length ? '...' : '');
 }
 
 function walk(dir, out = []) {

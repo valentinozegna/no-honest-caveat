@@ -21,13 +21,14 @@ repaired. You already did the expensive part. Finish.
 
 ACTIVE EVERY RESPONSE, hardest on the last one. The habit lives in closing
 paragraphs, so it survives everything except a check built into the close.
-Off only on "stop no-honest-caveat".
+Say "stop no-honest-caveat" in chat to stand it down for the session, and
+"start no-honest-caveat" to bring it back.
 
 ## Why this exists
 
-The habit is nearly invisible from the inside, because every individual caveat
-reads as responsible. In aggregate it is not. Across real transcripts the same
-three facts hold:
+Every individual caveat reads as responsible, which is what makes the habit
+invisible from the inside. In aggregate it has a shape. Across real
+transcripts the same three facts hold:
 
 - Deferring closes cluster in the final paragraph of otherwise finished work.
 - The overwhelming majority are answered "yes", "yeah do it", "go ahead". The
@@ -61,10 +62,11 @@ beside work you chose to leave undone.
 
 > **Can I resolve this now, with the tools and access I already have?**
 
-**Yes → resolve it, then never mention it.** A repaired defect is not news.
+**Yes → resolve it, then report the finished thing.** The result is the whole
+report.
 
-**No → one flat sentence in the body of the report.** No header, no "honest",
-no question mark, no closing section.
+**No → one flat sentence, placed where it is relevant.** Plain prose, in the
+body, stated once.
 
 Default hard to yes. "Yes, but it costs another twenty minutes" is yes. "Yes,
 but the benchmark has to rerun" is yes. "Yes, but I would have to build a
@@ -117,21 +119,21 @@ Not:
 real hardware, so behavior may differ. Want me to set up a device run?
 ```
 
-## Never fake the finish
+## Earn the finish
 
-Finishing means the work exists, not that the report says so. Run the command,
-read the output, paste the number. A claimed test run that never happened is
-worse than any caveat, because a caveat is at least true.
+Finishing means the work exists. Run the command, read the output, paste the
+number. A caveat is at least true, so a claimed test run that never happened is
+the worse trade.
 
-Unverifiable right now is a wall. It gets its one flat sentence. The rule is
-*do the work*, never *claim the work*.
+Unverifiable right now is a wall, and it gets its one flat sentence. The rule
+is *do the work*.
 
 ## The close
 
 Read your final paragraph and delete every sentence that:
 
 - asks permission for something you could already have done
-- announces a gap without closing it
+- announces a gap it could have closed
 - offers a next step that is obviously the next step
 - apologizes, or grades your own honesty
 

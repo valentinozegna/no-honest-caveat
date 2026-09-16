@@ -27,11 +27,11 @@ It gives your agent one gate to pass before it closes a response:
 
 ### *Can I resolve this now, with the tools and access I already have?*
 
-**YES** → resolve it, and never mention it.<br>
-*A repaired defect is not news.*
+**YES** → resolve it, then report the finished thing.<br>
+*The result is the whole report.*
 
-**NO** → one flat sentence in the body.<br>
-*No header, no "honest", no question mark.*
+**NO** → one flat sentence, placed where it is relevant.<br>
+*Plain prose, in the body, stated once.*
 
 </div>
 
@@ -61,7 +61,7 @@ the phrase is named.
 no-honest-caveat: your close hands unfinished work back to the user.
 
   "Say the word" -> You already know the fix. Apply it.
-  "One honest caveat" -> Close the gap instead of naming it.
+  "One honest caveat" -> Close the gap, then report it closed.
   "untested" -> Build the fixture and run it.
 ```
 
@@ -70,8 +70,9 @@ money, anything irreversible), **a wall it cannot climb** (missing hardware, a
 dead API), and **bias in its own measurements**. Deleting data, pushing to a
 remote, sending mail: it still asks, always.
 
-It will never claim a finish it did not reach. A false completion is worse than
-a caveat, because a caveat is at least true.
+Every finish it claims is one it actually reached: it runs the command, reads
+the output, and pastes the number. A caveat is at least true, so a false
+completion is the worse trade.
 
 ## Install
 
@@ -125,8 +126,19 @@ if the copies drift.
 
 ## Turning it off
 
+Say this in chat and both halves stand down for the rest of the session: the
+agent drops the skill, and the Stop hook stops inspecting your closes.
+
 ```
 stop no-honest-caveat
 ```
+
+Bring it back the same way:
+
+```
+start no-honest-caveat
+```
+
+Permanently: `/plugin uninstall no-honest-caveat`, or `npx skills remove`.
 
 MIT.
